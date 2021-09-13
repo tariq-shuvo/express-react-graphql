@@ -5,7 +5,7 @@ import {
 } from "@apollo/client";
 
 const GET_AUTHOR_LIST = gql`
-  {
+query GetAuthors {
     authors {
         id, 
         name,
