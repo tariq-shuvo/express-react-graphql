@@ -3,7 +3,7 @@ const _ = require('lodash')
 const Author = require('../models/Author')
 const Book = require('../models/Book')
 
-const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt} = graphql
+const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLNonNull} = graphql
 
 //dummy data
 // const books = [
@@ -116,7 +116,7 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         book: {
             type: BookType,
-            args: { id: {type: GraphQLID} },
+            args: { id: {type: new GraphQLNonNull(GraphQLID)} },
             resolve(parent, args){
                 //code to get data from db or source
                 // return _.find(books, {id: args.id})
@@ -133,7 +133,7 @@ const RootQuery = new GraphQLObjectType({
         },
         author: {
             type: AuthorType,
-            args: { id: {type: GraphQLID} },
+            args: { id: {type: new GraphQLNonNull(GraphQLID)} },
             resolve(parent, args){
                 // return _.find(authors, {id: args.id})
                 const { id } = args
@@ -156,8 +156,8 @@ const Mutation = new GraphQLObjectType({
         addAuthor: {
            type: AuthorType,
            args: {
-               name: { type: GraphQLString},
-               age: { type: GraphQLInt}
+               name: { type: new GraphQLNonNull(GraphQLString)},
+               age: { type: new GraphQLNonNull(GraphQLInt)}
            },
            async resolve(parent, args){
                const {name, age} = args
@@ -173,9 +173,9 @@ const Mutation = new GraphQLObjectType({
         addBook: {
             type: BookType,
             args: {
-                name: { type: GraphQLString},
-                genre: { type: GraphQLString},
-                author: { type: GraphQLID}
+                name: { type: new GraphQLNonNull(GraphQLString)},
+                genre: { type: new GraphQLNonNull(GraphQLString)},
+                author: { type: new GraphQLNonNull(GraphQLID)}
             },
             async resolve(parent, args){
                 const {name, genre, author} = args
