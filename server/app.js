@@ -3,6 +3,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// Cros request allow lib load
+var cors = require('cors')
+
 // Connect mongo database
 const mongoConnect = require('./db/connect')
 mongoConnect()
@@ -15,6 +18,9 @@ const schema = require('./schema/schema')
 // var usersRouter = require('./routes/users');
 
 var app = express();
+
+// Use Cros request allow lib
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(express.json());
