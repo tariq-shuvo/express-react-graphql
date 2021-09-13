@@ -2,6 +2,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+// Connect mongo database
+const mongoConnect = require('./db/connect')
+mongoConnect()
+
 // load express graphql
 const {graphqlHTTP} = require('express-graphql') 
 const schema = require('./schema/schema')
